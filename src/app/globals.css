@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-tinta: #211d1a;
+  --color-papel: #faf7f2;
+  --color-rejunte: #e8e1d6;
+  --color-azulejo: #1f5f63;
+  --color-terra: #b4552f;
+  --font-titulo: Georgia, "Times New Roman", serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--color-papel);
+  color: var(--color-tinta);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--font-titulo); font-weight: 400; letter-spacing: -0.01em; }
