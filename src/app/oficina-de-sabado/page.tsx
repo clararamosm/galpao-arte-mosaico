@@ -21,8 +21,12 @@ const grade = [
   ["14h30", "Fim, foto das peças, todo mundo sai com a peça pronta"],
 ];
 
-export default function OficinaDeSabado() {
-  const oficinas = getOficinas();
+// A agenda vem de planilha. Cinco minutos de cache: a Monica edita e o site
+// acompanha sem deploy, e sem bater na planilha a cada visita.
+export const revalidate = 300;
+
+export default async function OficinaDeSabado() {
+  const oficinas = await getOficinas();
   const e = site.endereco;
 
   return (
@@ -68,18 +72,24 @@ export default function OficinaDeSabado() {
       <article className="mx-auto max-w-3xl px-5 py-14">
         <h1 className="text-3xl leading-tight sm:text-4xl">{seo.oficinaDeSabado.h1}</h1>
         <p className="mt-5 text-lg leading-relaxed text-tinta/80">
-          Oficina presencial de mosaico no galpão do Prado, em Belo Horizonte. Das 9h às 14h30,
-          turma pequena, material e ferramentas inclusos. Sem experiência nenhuma.
+          Uma oficina de artesanato presencial em Belo Horizonte, e a técnica é mosaico. No galpão
+          do Prado, das 9h às 14h30, turma pequena, material e ferramentas inclusos. Sem
+          experiência nenhuma.
         </p>
 
         <section className="mt-12">
           <h2 className="text-2xl">Próximas datas</h2>
 
           {oficinas.length === 0 ? (
-            <div className="mt-5 rounded border border-dashed border-terra/50 bg-terra/5 p-5 text-sm leading-relaxed">
-              <strong className="font-medium">Bloqueante:</strong> as duas primeiras datas ainda não
-              vieram da Mônica. Sem data, esta página não pode ir ao ar como página de inscrição.
-              Preencher em <code>src/data/oficinas.ts</code>.
+            <div className="mt-5 rounded border border-rejunte bg-white p-5 leading-relaxed">
+              <p>
+                As próximas datas estão sendo fechadas. Deixe seu WhatsApp abaixo e a Mônica avisa
+                você assim que a agenda abrir.
+              </p>
+              <p className="mt-3 text-sm text-tinta/60">
+                Para publicar uma data, preencher a linha na planilha da agenda. O site atualiza em
+                até cinco minutos, sem precisar de deploy.
+              </p>
             </div>
           ) : (
             <ul className="mt-5 space-y-4">

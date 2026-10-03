@@ -16,7 +16,7 @@ export const seo = {
   oficinaDeSabado: {
     title: "Curso de mosaico em um sábado, em BH | Galpão Arte Mosaico",
     description:
-      "Oficina presencial de mosaico em Belo Horizonte, das 9h às 14h30. R$450 com material incluso, sem experiência, e você sai com a peça pronta.",
+      "Oficina de artesanato presencial em Belo Horizonte, com mosaico. Um sábado das 9h às 14h30, R$450 com material incluso, e você sai com a peça pronta.",
     h1: "Um sábado, uma peça sua, pronta para levar para casa",
   },
   mosaicoOuCeramica: {
