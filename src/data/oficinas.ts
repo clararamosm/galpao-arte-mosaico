@@ -30,6 +30,25 @@ export const PRECO_PADRAO = 450;
 export const HORA_INICIO_PADRAO = "09:00";
 export const HORA_FIM_PADRAO = "14:30";
 
+// As duas primeiras datas, confirmadas pela Monica em 03/10/2026:
+// sabado 17/10/2026 e sabado 31/10/2026, cadencia de sabado sim, sabado nao.
+//
+// Ainda falta a PECA de cada uma, e sem ela a data nao publica, porque a promessa
+// da pagina e "voce sai com esta peca pronta". A agenda rotativa prevista e
+// quadrinho, bandeja, caixinha, moldura de espelho e tampo pequeno, em dificuldade
+// crescente. Preencher aqui, ou na planilha quando ela existir:
+//
+// {
+//   id: "2026-10-17",
+//   inicio: "2026-10-17T09:00:00-03:00",
+//   fim: "2026-10-17T14:30:00-03:00",
+//   peca: "<<< FALTA >>>",
+//   descricao: "",
+//   precoBRL: PRECO_PADRAO,
+//   vagasTotais: VAGAS_PADRAO,
+//   vagasDisponiveis: VAGAS_PADRAO,
+//   local: "galpao",
+// },
 const agendaLocal: Oficina[] = [];
 
 /* ------------------------------------------------------------------ *
