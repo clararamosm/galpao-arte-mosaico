@@ -16,12 +16,15 @@ export function Revelar({
   children,
   grupo = false,
   className = "",
+  como: Tag = "div",
 }: {
   children: React.ReactNode;
   grupo?: boolean;
   className?: string;
+  /** `ul` quando os filhos sao <li>, para o HTML ficar valido. */
+  como?: "div" | "ul";
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement & HTMLUListElement>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -44,8 +47,8 @@ export function Revelar({
   }, []);
 
   return (
-    <div ref={ref} className={`${grupo ? "revelar-grupo" : "revelar"} ${className}`}>
+    <Tag ref={ref} className={`${grupo ? "revelar-grupo" : "revelar"} ${className}`}>
       {children}
-    </div>
+    </Tag>
   );
 }

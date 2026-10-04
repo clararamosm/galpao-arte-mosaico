@@ -2,7 +2,7 @@ import Link from "next/link";
 import { seo } from "@/data/seo";
 import { site, whatsappLink } from "@/data/site";
 import { getOficinas, formatarData, formatarPreco, formatarHora } from "@/data/oficinas";
-import { fotosAulas, fotosObras } from "@/data/fotos";
+import { fotosOficina, fotosAulasIndividuais, fotosObras } from "@/data/fotos";
 import { JsonLd } from "@/components/JsonLd";
 import { Assinatura } from "@/components/Assinatura";
 import { Capsula } from "@/components/Capsula";
@@ -15,12 +15,21 @@ import { Mapa } from "@/components/Mapa";
 // A home le a mesma planilha da pagina da oficina.
 export const revalidate = 300;
 
-function VerTudo({ href, children }: { href: string; children: React.ReactNode }) {
+function VerTudo({
+  href,
+  children,
+  tom = "papel",
+}: {
+  href: string;
+  children: React.ReactNode;
+  tom?: "papel" | "escuro";
+}) {
+  const cor =
+    tom === "escuro"
+      ? "border-papel text-papel hover:text-laranja"
+      : "border-tinta hover:text-laranja-texto";
   return (
-    <Link
-      href={href}
-      className="mt-8 inline-block border-b-2 border-tinta pb-1 text-[19px] font-bold hover:text-laranja-texto"
-    >
+    <Link href={href} className={`mt-8 inline-block border-b-2 pb-1 text-[19px] font-bold ${cor}`}>
       {children}
     </Link>
   );
@@ -58,15 +67,17 @@ export default async function Home() {
 
         <h1 className="flex grow flex-col justify-center gap-1 pt-8 text-[10.5vw] font-black leading-[0.95] tracking-[-0.04em] sm:gap-0 lg:pt-4 lg:text-[clamp(56px,7.8vw,112px)] lg:leading-[0.92] lg:tracking-[-0.045em]">
           <span>Desde 2001</span>
-          <span className="flex items-center gap-6">
+          <span className="flex items-center gap-0 lg:gap-6">
             transformando
             <span className="hidden lg:inline">
               <Capsula largura={260} alt="Cacos de azulejo cortados à mão" />
             </span>
           </span>
-          <span className="flex items-center gap-6">
-            <span className="text-laranja-texto">caco</span> e{" "}
-            <span className="text-verde">vidro</span>
+          <span className="flex items-center gap-0 lg:gap-6">
+            <span>
+              <span className="text-laranja-texto">caco</span> e{" "}
+              <span className="text-verde">vidro</span>
+            </span>
             <span className="hidden lg:inline">
               <Capsula largura={200} alt="Vitral em laranja e verde" />
             </span>
@@ -99,7 +110,7 @@ export default async function Home() {
         intro="Uma oficina de artesanato presencial em Belo Horizonte, e a técnica é mosaico. No galpão do Prado, das 9h às 14h30, turma de até sete pessoas, material e ferramentas inclusos. Sem experiência nenhuma, e sem precisar saber desenhar."
       >
         {oficinas.length > 0 ? (
-          <Revelar grupo className="mt-10 grid gap-4 sm:grid-cols-2">
+          <Revelar grupo como="ul" className="mt-10 grid list-none gap-4 sm:grid-cols-2">
             {oficinas.map((o) => (
               <li key={o.id} className="border-2 border-tinta p-6">
                 <p className="font-sotaque text-[26px] italic leading-tight text-verde first-letter:uppercase">
@@ -134,7 +145,7 @@ export default async function Home() {
 
         <Revelar>
           <Galeria
-            fotos={fotosAulas}
+            fotos={fotosOficina}
             legenda="Peças feitas por alunas nas oficinas. Fotos publicadas com autorização."
           />
           <VerTudo href="/oficina-de-sabado">Ver tudo sobre a Oficina de Sábado</VerTudo>
@@ -148,21 +159,33 @@ export default async function Home() {
         sotaque="seis horas"
         intro="No ateliê do apartamento, no seu ritmo, com a técnica que você quiser. Material incluso, metade na reserva e metade na conclusão."
       >
-        <Revelar grupo className="mt-10 grid gap-6 sm:grid-cols-3">
+        {/* O preco e o dado que a pessoa veio buscar: entra como numero grande,
+            nao como linha de apoio em corpo de texto. */}
+        <Revelar grupo className="mt-10 grid gap-px border-t-2 border-tinta bg-tinta sm:grid-cols-3">
           {[
-            ["Mosaico", "R$620", "6 horas"],
-            ["Vitral em resina", "R$900", "6 horas"],
-            ["Vitral Tiffany", "R$2.200", "12 horas"],
+            ["Mosaico", "620", "6 horas"],
+            ["Vitral em resina", "900", "6 horas"],
+            ["Vitral Tiffany", "2.200", "12 horas"],
           ].map(([t, p, d]) => (
-            <div key={t} className="border-t-2 border-tinta pt-4">
-              <p className="text-[22px] font-extrabold">{t}</p>
-              <p className="mt-1 text-[19px] text-apoio">
-                {p} · {d}
+            <div key={t} className="bg-papel pb-7 pt-6">
+              <p className="text-[17px] font-bold uppercase tracking-[0.08em] text-apoio">{t}</p>
+              <p className="mt-3 flex items-baseline gap-1.5 font-black leading-none tracking-[-0.04em]">
+                <span className="text-[24px] text-apoio">R$</span>
+                <span className="text-[clamp(52px,12vw,68px)]">{p}</span>
               </p>
+              <p className="mt-3 text-[19px] font-medium text-apoio">{d} de ateliê</p>
             </div>
           ))}
         </Revelar>
-        <VerTudo href="/aulas-individuais">Ver tudo sobre as aulas individuais</VerTudo>
+
+        <Revelar>
+          <Galeria
+            fotos={fotosAulasIndividuais}
+            altura="baixa"
+            legenda="Peças que saíram de aulas individuais. Fotos publicadas com autorização."
+          />
+          <VerTudo href="/aulas-individuais">Ver tudo sobre as aulas individuais</VerTudo>
+        </Revelar>
       </Secao>
 
       {/* 3. VITRAIS E MOSAICO SOB ENCOMENDA */}
@@ -170,14 +193,23 @@ export default async function Home() {
         id="encomenda"
         titulo="Vitral e mosaico"
         sotaque="sob encomenda"
+        tom="escuro"
         intro="Vitral Tiffany e vitral em resina sobre policarbonato, para casas, igrejas e empresas. Painéis, tampos, pisos e revestimentos em mosaico autoral para projetos de arquitetura. A partir de R$2.600 o metro quadrado."
       >
         <Revelar>
-          <Galeria fotos={fotosObras} legenda="Obras executadas ao longo de 26 anos de ofício." />
+          <Galeria
+            fotos={fotosObras}
+            tom="escuro"
+            legenda="Obras executadas ao longo de 26 anos de ofício."
+          />
         </Revelar>
-        <div className="mt-8 flex flex-wrap gap-6">
-          <VerTudo href="/vitrais">Ver tudo sobre vitrais</VerTudo>
-          <VerTudo href="/mosaico-sob-encomenda">Ver mosaico sob encomenda</VerTudo>
+        <div className="flex flex-wrap gap-x-8 gap-y-0">
+          <VerTudo href="/vitrais" tom="escuro">
+            Ver tudo sobre vitrais
+          </VerTudo>
+          <VerTudo href="/mosaico-sob-encomenda" tom="escuro">
+            Ver mosaico sob encomenda
+          </VerTudo>
         </div>
       </Secao>
 
