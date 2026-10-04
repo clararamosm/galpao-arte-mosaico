@@ -38,13 +38,15 @@ body {
   -webkit-text-stroke: 2px var(--color-chumbo);
 }
 
-/* Em telas pequenas o vitral vira ruido: o italico cai abaixo de 100px,
-   entao a palavra volta a ser solida. */
-@media (max-width: 700px) {
+/* O guia diz que vitral abaixo de 100px vira ruido, e a primeira versao
+   desligava o efeito no celular. A Clara pediu para manter.
+   A solucao nao e desligar, e reescalar: o padrao encolhe na mesma proporcao
+   da letra, entao a peca de vitral continua com o mesmo tamanho relativo.
+   172px de texto usa 1400x240 de fundo; ~50px usa ~420x72. */
+@media (max-width: 1023px) {
   .texto-vitral {
-    background: none;
-    color: var(--color-laranja-texto);
-    -webkit-text-stroke: 0;
+    background-size: 420px 72px;
+    -webkit-text-stroke-width: 1.5px;
   }
 }
 
@@ -53,4 +55,100 @@ body {
    deixando o botao escuro com texto invisivel. */
 @layer base {
   a { color: inherit; }
+}
+
+
+/* ------------------------------------------------------------------ *
+ * Composicao de titulo
+ * ------------------------------------------------------------------ */
+
+/* Regra da Clara, 04/10/2026: titulo de duas linhas precisa ter as linhas
+   equilibradas, nunca uma longa e uma curta com uma palavra orfa.
+   `text-wrap: balance` e o jeito nativo de fazer isso: o navegador procura a
+   quebra que iguala as linhas, em vez de encher a primeira ate o limite.
+   Vale ate 6 linhas nos navegadores atuais, que cobre todo titulo do site. */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* Quando o titulo tem ponto final no meio, o que vem depois do ponto comeca
+   na linha de baixo. Aplicado com <span class="apos-ponto"> no texto. */
+.apos-ponto {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ *
+ * Movimento
+ * ------------------------------------------------------------------ */
+
+/* O estado escondido so existe se o JS marcou o documento. Sem JS, ou se o
+   script falhar, o conteudo aparece normalmente: animacao nunca pode ser
+   pre-requisito para ler a pagina. */
+.js .revelar {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js .revelar.visivel {
+  opacity: 1;
+  transform: none;
+}
+
+/* Escalonamento: os filhos entram em sequencia, nao todos de uma vez. */
+.js .revelar-grupo > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js .revelar-grupo.visivel > * {
+  opacity: 1;
+  transform: none;
+}
+
+.js .revelar-grupo.visivel > *:nth-child(2) { transition-delay: 0.09s; }
+.js .revelar-grupo.visivel > *:nth-child(3) { transition-delay: 0.18s; }
+.js .revelar-grupo.visivel > *:nth-child(4) { transition-delay: 0.27s; }
+
+/* Botao: sombra dura que aparece no hover, no lugar de sombra difusa.
+   Combina com o desenho chapado e de cantos retos da identidade. */
+.botao {
+  position: relative;
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.botao:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 var(--color-chumbo);
+}
+
+.botao:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--color-chumbo);
+}
+
+/* Foto da galeria com um leve aproximar no hover. */
+.foto-galeria img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.foto-galeria:hover img {
+  transform: scale(1.04);
+}
+
+/* Quem pediu menos movimento recebe menos movimento. */
+@media (prefers-reduced-motion: reduce) {
+  .js .revelar,
+  .js .revelar-grupo > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .botao, .botao:hover, .botao:active { transform: none; box-shadow: none; transition: none; }
+  .foto-galeria img, .foto-galeria:hover img { transition: none; transform: none; }
+  html { scroll-behavior: auto; }
 }

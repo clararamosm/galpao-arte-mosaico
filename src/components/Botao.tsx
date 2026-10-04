@@ -15,7 +15,7 @@ export function Botao({
   evento?: string;
 }) {
   const base =
-    "inline-block px-[30px] py-5 text-[17px] font-extrabold leading-none transition hover:opacity-90";
+    "botao inline-block px-[30px] py-5 text-[17px] font-extrabold leading-none";
   const cor =
     tipo === "principal" ? "bg-laranja text-tinta" : "bg-tinta text-papel";
   const cls = `${base} ${cor}`;

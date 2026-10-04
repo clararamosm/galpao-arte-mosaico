@@ -42,6 +42,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={`${sans.variable} ${sotaque.variable}`}>
+      <head>
+        {/* Antes da pintura, para nao haver um quadro com o conteudo escondido
+            se o React demorar, e para o conteudo ficar visivel sem JS. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
+      </head>
       <body className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">{children}</main>

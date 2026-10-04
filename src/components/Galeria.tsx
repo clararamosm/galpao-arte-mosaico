@@ -23,7 +23,7 @@ export function Galeria({
     <figure className="mt-10">
       <div className="-mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-3 lg:-mx-[72px] lg:px-[72px]">
         {fotos.map((f) => (
-          <div key={f.src} className={`relative ${h} w-[78vw] shrink-0 snap-start sm:w-[400px]`}>
+          <div key={f.src} className={`foto-galeria relative ${h} w-[78vw] shrink-0 snap-start overflow-hidden sm:w-[400px]`}>
             <Image
               src={f.src}
               alt={f.alt}

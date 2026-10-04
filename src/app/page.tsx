@@ -9,6 +9,8 @@ import { Capsula } from "@/components/Capsula";
 import { Botao } from "@/components/Botao";
 import { Galeria } from "@/components/Galeria";
 import { Secao } from "@/components/Secao";
+import { Revelar } from "@/components/Revelar";
+import { Mapa } from "@/components/Mapa";
 
 // A home le a mesma planilha da pagina da oficina.
 export const revalidate = 300;
@@ -81,13 +83,10 @@ export default async function Home() {
           </Botao>
         </div>
 
-        <div className="mt-10 flex flex-col gap-6 border-t-2 border-tinta pt-[22px] lg:flex-row lg:items-start lg:justify-between lg:gap-10">
-          <p className="max-w-[500px] text-[19px] font-medium leading-[1.5]">
+        <div className="mt-10 border-t-2 border-tinta pt-[22px]">
+          <p className="max-w-[640px] text-[19px] font-medium leading-[1.5]">
             Oficinas de mosaico e vitral para quem quer aprender o ofício com quem vive dele, e
             obra sob encomenda para casas, igrejas e empresas.
-          </p>
-          <p className="max-w-[260px] text-sm leading-[1.6] text-apoio">
-            Casa Cor · Assembleia Legislativa de MG · Shopping Vitória · Barcelona
           </p>
         </div>
       </section>
@@ -100,7 +99,7 @@ export default async function Home() {
         intro="Uma oficina de artesanato presencial em Belo Horizonte, e a técnica é mosaico. No galpão do Prado, das 9h às 14h30, turma de até sete pessoas, material e ferramentas inclusos. Sem experiência nenhuma, e sem precisar saber desenhar."
       >
         {oficinas.length > 0 ? (
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+          <Revelar grupo className="mt-10 grid gap-4 sm:grid-cols-2">
             {oficinas.map((o) => (
               <li key={o.id} className="border-2 border-tinta p-6">
                 <p className="font-sotaque text-[26px] italic leading-tight text-verde first-letter:uppercase">
@@ -125,7 +124,7 @@ export default async function Home() {
                 </div>
               </li>
             ))}
-          </ul>
+          </Revelar>
         ) : (
           <p className="mt-10 border-2 border-tinta p-6 text-[19px] leading-[1.5]">
             As próximas datas estão sendo fechadas. Chame no WhatsApp que a Mônica avisa assim que
@@ -133,11 +132,13 @@ export default async function Home() {
           </p>
         )}
 
-        <Galeria
-          fotos={fotosAulas}
-          legenda="Peças feitas por alunas nas oficinas. Fotos publicadas com autorização."
-        />
-        <VerTudo href="/oficina-de-sabado">Ver tudo sobre a Oficina de Sábado</VerTudo>
+        <Revelar>
+          <Galeria
+            fotos={fotosAulas}
+            legenda="Peças feitas por alunas nas oficinas. Fotos publicadas com autorização."
+          />
+          <VerTudo href="/oficina-de-sabado">Ver tudo sobre a Oficina de Sábado</VerTudo>
+        </Revelar>
       </Secao>
 
       {/* 2. AULAS INDIVIDUAIS */}
@@ -147,20 +148,20 @@ export default async function Home() {
         sotaque="seis horas"
         intro="No ateliê do apartamento, no seu ritmo, com a técnica que você quiser. Material incluso, metade na reserva e metade na conclusão."
       >
-        <dl className="mt-10 grid gap-6 sm:grid-cols-3">
+        <Revelar grupo className="mt-10 grid gap-6 sm:grid-cols-3">
           {[
             ["Mosaico", "R$620", "6 horas"],
             ["Vitral em resina", "R$900", "6 horas"],
             ["Vitral Tiffany", "R$2.200", "12 horas"],
           ].map(([t, p, d]) => (
             <div key={t} className="border-t-2 border-tinta pt-4">
-              <dt className="text-[22px] font-extrabold">{t}</dt>
-              <dd className="mt-1 text-[19px] text-apoio">
+              <p className="text-[22px] font-extrabold">{t}</p>
+              <p className="mt-1 text-[19px] text-apoio">
                 {p} · {d}
-              </dd>
+              </p>
             </div>
           ))}
-        </dl>
+        </Revelar>
         <VerTudo href="/aulas-individuais">Ver tudo sobre as aulas individuais</VerTudo>
       </Secao>
 
@@ -171,7 +172,9 @@ export default async function Home() {
         sotaque="sob encomenda"
         intro="Vitral Tiffany e vitral em resina sobre policarbonato, para casas, igrejas e empresas. Painéis, tampos, pisos e revestimentos em mosaico autoral para projetos de arquitetura. A partir de R$2.600 o metro quadrado."
       >
-        <Galeria fotos={fotosObras} legenda="Obras executadas ao longo de 26 anos de ofício." />
+        <Revelar>
+          <Galeria fotos={fotosObras} legenda="Obras executadas ao longo de 26 anos de ofício." />
+        </Revelar>
         <div className="mt-8 flex flex-wrap gap-6">
           <VerTudo href="/vitrais">Ver tudo sobre vitrais</VerTudo>
           <VerTudo href="/mosaico-sob-encomenda">Ver mosaico sob encomenda</VerTudo>
@@ -183,6 +186,7 @@ export default async function Home() {
         id="empresas"
         titulo="O time faz um painel."
         sotaque="O painel fica na parede."
+        sotaqueNaLinhaDeBaixo
         intro="Dinâmica de mosaico para confraternização e integração, na empresa ou no galpão. De 6 a 90 anos, sem experiência, e o grupo sai com uma peça coletiva."
       >
         <div className="mt-10 border-2 border-dashed border-laranja bg-laranja/10 p-6 text-[17px] leading-relaxed text-apoio">
@@ -200,7 +204,10 @@ export default async function Home() {
         sotaque="Prado"
         intro="O galpão é onde ficam as obras grandes e as Oficinas de Sábado. As aulas individuais acontecem no ateliê do apartamento, mais intimista. Visitas com hora marcada, de segunda a sábado, das 8h às 18h."
       >
-        <div className="mt-8 flex flex-wrap gap-3">
+        <Revelar>
+          <Mapa />
+        </Revelar>
+        <div className="mt-8 flex flex-wrap items-center gap-3">
           <Botao
             href={whatsappLink("Oi! Vim pelo site e queria marcar uma visita ao ateliê.")}
             externo
@@ -210,6 +217,10 @@ export default async function Home() {
           </Botao>
           <VerTudo href="/o-atelie">Como chegar</VerTudo>
         </div>
+        <p className="mt-12 border-t-2 border-tinta pt-5 text-sm leading-[1.6] text-apoio">
+          Casa Cor · Assembleia Legislativa de MG · Shopping Vitória · Feira Nacional de
+          Artesanato · Curso em Barcelona
+        </p>
       </Secao>
     </>
   );
