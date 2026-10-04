@@ -95,7 +95,7 @@ export default async function OficinaDeSabado() {
             <ul className="mt-5 space-y-4">
               {oficinas.map((o) => (
                 <li key={o.id} className="rounded border border-tinta/25 bg-white p-5">
-                  <p className="font-sotaque italic text-lg capitalize">
+                  <p className="font-sotaque text-[26px] italic leading-tight text-verde first-letter:uppercase">
                     {formatarData(o.inicio)}
                   </p>
                   <p className="mt-1 text-sm text-tinta/75">
