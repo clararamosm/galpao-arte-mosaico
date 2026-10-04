@@ -5,7 +5,10 @@ import { Revelar } from "./Revelar";
  * A home passa de cinco mil pixels de altura no celular. Tudo no mesmo papel
  * cru vira parede de texto, que foi a critica da Clara em 04/10/2026.
  * O tom escuro quebra isso uma vez so, na secao das obras, onde a foto e o
- * assunto: fundo chumbo faz o mosaico saltar. Uma quebra de simetria, e so uma.
+ * assunto. Uma quebra de simetria, e so uma.
+ *
+ * O escuro e o verde `tinta`, o mesmo do rodape, nunca o chumbo quase preto:
+ * preto nao e a vibe da marca (Clara, 04/10/2026).
  */
 export function Secao({
   id,
@@ -31,7 +34,7 @@ export function Secao({
     <section
       id={id}
       className={
-        escuro ? "scroll-mt-24 bg-chumbo text-papel" : "scroll-mt-24 border-t-2 border-tinta"
+        escuro ? "scroll-mt-24 bg-tinta text-papel" : "scroll-mt-24 border-t-2 border-tinta"
       }
     >
       <div className="mx-auto w-full max-w-[1440px] px-6 py-20 lg:px-[72px] lg:py-28">
