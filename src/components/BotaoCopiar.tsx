@@ -21,7 +21,7 @@ export function BotaoCopiar({ texto, rotulo = "Copiar" }: { texto: string; rotul
     <button
       type="button"
       onClick={copiar}
-      className="rounded border border-azulejo px-3 py-1.5 text-xs font-medium text-azulejo transition hover:bg-azulejo hover:text-papel"
+      className="rounded border border-verde px-3 py-1.5 text-xs font-medium text-verde transition hover:bg-verde hover:text-papel"
     >
       {copiado ? "Copiado" : rotulo}
     </button>

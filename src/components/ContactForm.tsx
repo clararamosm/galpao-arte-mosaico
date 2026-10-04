@@ -7,7 +7,7 @@
  */
 export function ContactForm({ assunto }: { assunto: string }) {
   const campo =
-    "mt-1 w-full rounded border border-rejunte bg-white px-3 py-2 text-sm outline-none focus:border-azulejo";
+    "mt-1 w-full rounded border border-tinta/25 bg-white px-3 py-2 text-sm outline-none focus:border-verde";
 
   return (
     <form className="max-w-md space-y-4" data-evento="formulario-contato">
@@ -43,7 +43,7 @@ export function ContactForm({ assunto }: { assunto: string }) {
 
       <button
         type="submit"
-        className="rounded bg-terra px-5 py-2.5 text-sm font-medium text-papel transition hover:opacity-90"
+        className="rounded bg-laranja px-5 py-2.5 text-sm font-medium text-tinta transition hover:opacity-90"
       >
         Enviar
       </button>

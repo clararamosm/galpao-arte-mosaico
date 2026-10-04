@@ -35,7 +35,7 @@ export default function MosaicoOuCeramica() {
       <div className="mt-10 overflow-x-auto">
         <table className="w-full border-collapse text-sm">
           <thead>
-            <tr className="border-b border-rejunte text-left">
+            <tr className="border-b border-tinta/25 text-left">
               <th className="py-3 pr-4 font-medium"> </th>
               <th className="py-3 pr-4 font-medium">Cerâmica</th>
               <th className="py-3 font-medium">Mosaico</th>
@@ -43,7 +43,7 @@ export default function MosaicoOuCeramica() {
           </thead>
           <tbody>
             {comparacao.map(([q, c, m]) => (
-              <tr key={q} className="border-b border-rejunte/60 align-top">
+              <tr key={q} className="border-b border-tinta/15 align-top">
                 <td className="py-3 pr-4 font-medium">{q}</td>
                 <td className="py-3 pr-4 text-tinta/75">{c}</td>
                 <td className="py-3 text-tinta/75">{m}</td>
@@ -62,7 +62,7 @@ export default function MosaicoOuCeramica() {
 
       <Link
         href="/oficina-de-sabado"
-        className="mt-8 inline-block rounded bg-terra px-6 py-3 text-sm font-medium text-papel transition hover:opacity-90"
+        className="mt-8 inline-block rounded bg-laranja px-6 py-3 text-sm font-medium text-tinta transition hover:opacity-90"
       >
         Ver a Oficina de Sábado
       </Link>

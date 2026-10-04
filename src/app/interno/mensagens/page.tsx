@@ -22,7 +22,7 @@ export default async function Mensagens() {
         que está na planilha da agenda. Não precisa editar nada, só copiar e colar.
       </p>
       <p className="mt-3 leading-relaxed text-tinta/80">
-        Onde aparecer <code className="rounded bg-rejunte px-1.5 py-0.5 text-sm">[NOME]</code>, é
+        Onde aparecer <code className="rounded bg-tinta/10 px-1.5 py-0.5 text-sm">[NOME]</code>, é
         para trocar pelo nome da pessoa antes de enviar.
       </p>
       <p className="mt-3 text-sm text-tinta/60">
@@ -31,7 +31,7 @@ export default async function Mensagens() {
       </p>
 
       {oficinas.length === 0 ? (
-        <div className="mt-10 rounded border border-dashed border-terra/50 bg-terra/5 p-5 leading-relaxed">
+        <div className="mt-10 rounded border border-dashed border-laranja/60 bg-laranja/10 p-5 leading-relaxed">
           <p className="font-medium">Nenhuma data publicada ainda.</p>
           <p className="mt-2 text-sm text-tinta/75">
             Preencha uma linha na planilha da agenda com a data e a peça. As mensagens aparecem
@@ -41,7 +41,7 @@ export default async function Mensagens() {
       ) : (
         oficinas.map((o) => (
           <section key={o.id} className="mt-14">
-            <div className="rounded border border-azulejo/30 bg-azulejo/5 p-5">
+            <div className="rounded border border-verde/30 bg-verde/5 p-5">
               <h2 className="text-2xl capitalize">{formatarData(o.inicio)}</h2>
               <p className="mt-1 text-sm text-tinta/75">
                 {o.peca}. {formatarPreco(o.precoBRL)}. {o.vagasDisponiveis} de {o.vagasTotais}{" "}
@@ -51,10 +51,10 @@ export default async function Mensagens() {
 
             <div className="mt-6 space-y-6">
               {modelosPara(o).map((m) => (
-                <article key={m.id} className="rounded border border-rejunte bg-white p-5">
+                <article key={m.id} className="rounded border border-tinta/25 bg-white p-5">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                      <h3 className="font-[family-name:var(--font-titulo)] text-lg">{m.titulo}</h3>
+                      <h3 className="font-sotaque italic text-lg">{m.titulo}</h3>
                       <p className="mt-1 text-xs uppercase tracking-wide text-tinta/50">
                         {m.canal}
                       </p>
@@ -69,14 +69,14 @@ export default async function Mensagens() {
                     <strong className="font-medium">Quando usar:</strong> {m.quando}
                   </p>
                   {m.cuidado ? (
-                    <p className="mt-2 text-sm text-terra">
+                    <p className="mt-2 text-sm text-laranja-texto">
                       <strong className="font-medium">Atenção:</strong> {m.cuidado}
                     </p>
                   ) : null}
 
                   {m.assunto ? (
                     <div className="mt-4 flex items-center gap-3">
-                      <p className="flex-1 rounded bg-rejunte/60 px-3 py-2 text-sm">
+                      <p className="flex-1 rounded bg-tinta/5 px-3 py-2 text-sm">
                         <span className="text-tinta/60">Assunto: </span>
                         {m.assunto}
                       </p>

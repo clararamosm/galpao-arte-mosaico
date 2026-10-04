@@ -16,7 +16,7 @@ export default function Page() {
       <AFazer>Galeria sem preço e sem carrinho, por decisão da Mônica. Cada peça com uma linha sobre técnica e um caminho para a Oficina de Sábado. ATENÇÃO: title e meta desta página são provisórios até filtrar /produtos-pronta-entrega por página no Search Console. São 67 cliques em jogo.</AFazer>
       <p className="text-sm text-tinta/70">
         Chegou aqui procurando aula de cerâmica?{" "}
-        <Link href="/mosaico-ou-ceramica" className="underline underline-offset-4 hover:text-azulejo">
+        <Link href="/mosaico-ou-ceramica" className="underline underline-offset-4 hover:text-verde">
           Veja a diferença entre as duas
         </Link>
         .

@@ -1,12 +1,19 @@
 @import "tailwindcss";
 
+/* Tokens da identidade aprovada em 04/10/2026.
+   Fonte unica: identidade-visual-galpao-arte-mosaico.md, no projeto.
+   Os nomes antigos do esqueleto (rejunte, azulejo, terra) sairam. */
 @theme {
-  --color-tinta: #211d1a;
-  --color-papel: #faf7f2;
-  --color-rejunte: #e8e1d6;
-  --color-azulejo: #1f5f63;
-  --color-terra: #b4552f;
-  --font-titulo: Georgia, "Times New Roman", serif;
+  --color-papel: #F6EEDF;
+  --color-tinta: #16301E;
+  --color-laranja: #E2672A;
+  --color-laranja-texto: #D85F24;
+  --color-verde: #2F6B3E;
+  --color-apoio: #4B5B4A;
+  --color-chumbo: #14130F;
+
+  --font-sans: var(--fonte-sans), system-ui, sans-serif;
+  --font-sotaque: var(--fonte-sotaque), Georgia, serif;
 }
 
 html { scroll-behavior: smooth; }
@@ -14,7 +21,36 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--color-papel);
   color: var(--color-tinta);
+  font-family: var(--font-sans);
+  font-weight: 500;
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 { font-family: var(--font-titulo); font-weight: 400; letter-spacing: -0.01em; }
+/* Vitral dentro das letras. So em italico de 100px ou mais, e UMA VEZ POR TELA.
+   O texto continua texto real: selecionavel e lido por leitor de tela. */
+.texto-vitral {
+  background-image: url(/identidade/vitral-texto.svg);
+  background-size: 1400px 240px;
+  background-position: 0 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-chumbo);
+}
+
+/* Em telas pequenas o vitral vira ruido: o italico cai abaixo de 100px,
+   entao a palavra volta a ser solida. */
+@media (max-width: 700px) {
+  .texto-vitral {
+    background: none;
+    color: var(--color-laranja-texto);
+    -webkit-text-stroke: 0;
+  }
+}
+
+/* Precisa estar em @layer base. CSS sem camada vence as utilidades do Tailwind v4,
+   e um `a { color: inherit }` solto anulava text-papel e text-tinta em todo link,
+   deixando o botao escuro com texto invisivel. */
+@layer base {
+  a { color: inherit; }
+}

@@ -81,7 +81,7 @@ export default async function OficinaDeSabado() {
           <h2 className="text-2xl">Próximas datas</h2>
 
           {oficinas.length === 0 ? (
-            <div className="mt-5 rounded border border-rejunte bg-white p-5 leading-relaxed">
+            <div className="mt-5 rounded border border-tinta/25 bg-white p-5 leading-relaxed">
               <p>
                 As próximas datas estão sendo fechadas. Deixe seu WhatsApp abaixo e a Mônica avisa
                 você assim que a agenda abrir.
@@ -94,8 +94,8 @@ export default async function OficinaDeSabado() {
           ) : (
             <ul className="mt-5 space-y-4">
               {oficinas.map((o) => (
-                <li key={o.id} className="rounded border border-rejunte bg-white p-5">
-                  <p className="font-[family-name:var(--font-titulo)] text-lg capitalize">
+                <li key={o.id} className="rounded border border-tinta/25 bg-white p-5">
+                  <p className="font-sotaque italic text-lg capitalize">
                     {formatarData(o.inicio)}
                   </p>
                   <p className="mt-1 text-sm text-tinta/75">
@@ -115,7 +115,7 @@ export default async function OficinaDeSabado() {
                       target="_blank"
                       rel="noopener noreferrer"
                       data-evento="clique-inscricao"
-                      className="mt-4 inline-block rounded bg-terra px-5 py-2.5 text-sm font-medium text-papel transition hover:opacity-90"
+                      className="mt-4 inline-block rounded bg-laranja px-5 py-2.5 text-sm font-medium text-tinta transition hover:opacity-90"
                     >
                       Garantir minha vaga
                     </a>
@@ -156,7 +156,7 @@ export default async function OficinaDeSabado() {
             nas doze paginas, e nunca na home. */}
         <p className="mt-12 text-sm text-tinta/70">
           Chegou aqui procurando aula de cerâmica?{" "}
-          <Link href="/mosaico-ou-ceramica" className="underline underline-offset-4 hover:text-azulejo">
+          <Link href="/mosaico-ou-ceramica" className="underline underline-offset-4 hover:text-verde">
             Veja a diferença entre as duas
           </Link>
           .
