@@ -1,30 +1,42 @@
-# Site do Galpão Arte Mosaico
+# Galpão Arte Mosaico
 
-Migração do Wix para Next.js no Vercel. Mesmo domínio, mesma URL raiz.
+Site do ateliê de Mônica Fonseca, em Belo Horizonte. Next.js 15 (App Router), TypeScript, Tailwind v4, hospedado na Vercel.
 
-Documentos que governam este código, na pasta acima:
+Substitui o site da Wix em `galpaoartemosaico.com.br`. O plano de migração, a análise de busca que o orienta e as decisões já fechadas estão fora deste repositório, na pasta do projeto: `PLANO.md`, `spec-migracao-site.md`, `analise-consultas-gsc.md`, `titles-e-metas.md`, `wireframe.md`.
 
-- `spec-migracao-site.md` arquitetura, mapa de 301, fases e riscos
-- `titles-e-metas.md` title, meta e H1 de cada página
-- `analise-consultas-gsc.md` classificação das 422 consultas
-- `o-que-a-monica-ensina.md` fonte única sobre oferta
+## Rodar local
 
-## Rodar
-
-```
+```bash
 npm install
 npm run dev
 ```
 
-## Antes de virar o DNS
+## Variável de ambiente
 
-1. Conferir os sete redirecionamentos de `next.config.ts`
-2. Conferir que `/` nunca mudou de endereço
-3. Substituir a verificação do Search Console em `src/data/site.ts`
-4. Enviar o sitemap novo e pedir reindexação
+Uma só, e o site depende dela:
 
-## Onde ficam as datas da Oficina de Sábado
+```
+AGENDA_CSV_URL="https://docs.google.com/spreadsheets/d/<id>/export?format=csv"
+```
 
-`src/data/oficinas.ts`. Hoje é um arquivo, o que exige deploy a cada mudança.
-O mecanismo definitivo (planilha ou CMS) ainda não foi decidido. A interface
-`Oficina` foi desenhada para que a troca de fonte seja alteração de um arquivo só.
+É a planilha onde a Mônica escreve as datas da Oficina de Sábado. **Sem essa variável a home mostra o aviso de "datas sendo fechadas" mesmo com a planilha preenchida.** Em local vai no `.env.local`, que o git ignora. Na Vercel vai em Settings, Environment Variables, nos três ambientes.
+
+## Onde ficam as coisas
+
+| Caminho | O que é |
+|---|---|
+| `src/app/page.tsx` | A home longa, que concentra todas as ofertas |
+| `src/app/<rota>/` | As páginas dedicadas, que existem para o SEO |
+| `src/app/interno/` | Área da Mônica, com `noindex` e fora do sitemap |
+| `src/middleware.ts` | O mapa de 301 do site antigo. **Mexer aqui é mexer no tráfego** |
+| `src/data/site.ts` | Endereço, telefones e redes. Fonte única do NAP |
+| `src/data/seo.ts` | Title, description e H1 de cada página |
+| `src/data/oficinas.ts` | Leitura da planilha da agenda |
+| `src/data/mensagens.ts` | Modelos de WhatsApp e email com variáveis |
+| `public/fotos/` | Seleção em uso. O acervo completo mora fora do repositório |
+
+## Três coisas que quebram se forem mexidas sem cuidado
+
+1. **O 301 é literal.** O `redirects()` do Next emite 308, não 301, por isso o mapa vive no `middleware.ts`. E ele monta a URL com `new URL(alvo, req.url)`: `nextUrl.clone()` carrega o estado da barra final e cria laço infinito.
+2. **`a { color: inherit }` precisa ficar dentro de `@layer base`.** CSS sem camada vence as utilidades do Tailwind v4 e apaga o texto dos botões.
+3. **Foto nova precisa entrar sem metadado.** 222 das 274 originais carregavam coordenada de GPS, inclusive as das alunas.
